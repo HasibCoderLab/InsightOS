@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import ApiError from '../utils/ApiError.js';
+import env from '../config/env.js';
 
 /**
  * Generates an access token
@@ -8,7 +9,7 @@ import ApiError from '../utils/ApiError.js';
  * @returns {string}
  */
 export const generateAccessToken = (userId, role) => {
-  return jwt.sign({ userId, role }, process.env.JWT_ACCESS_SECRET, {
+  return jwt.sign({ userId, role }, env.JWT_ACCESS_SECRET, {
     expiresIn: '15m',
   });
 };
@@ -19,7 +20,7 @@ export const generateAccessToken = (userId, role) => {
  * @returns {string}
  */
 export const generateRefreshToken = (userId) => {
-  return jwt.sign({ userId }, process.env.JWT_REFRESH_SECRET, {
+  return jwt.sign({ userId }, env.JWT_REFRESH_SECRET, {
     expiresIn: '7d',
   });
 };
@@ -32,7 +33,7 @@ export const generateRefreshToken = (userId) => {
  */
 export const verifyAccessToken = (token) => {
   try {
-    return jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+    return jwt.verify(token, env.JWT_ACCESS_SECRET);
   } catch (error) {
     throw new ApiError(401, 'Invalid access token');
   }
@@ -46,7 +47,7 @@ export const verifyAccessToken = (token) => {
  */
 export const verifyRefreshToken = (token) => {
   try {
-    return jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+    return jwt.verify(token, env.JWT_REFRESH_SECRET);
   } catch (error) {
     throw new ApiError(401, 'Invalid refresh token');
   }

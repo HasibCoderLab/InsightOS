@@ -52,7 +52,7 @@ Your job:
 
     const {
       totalRevenue,
-      totalOrders,
+      totalTransactions,
       totalQuantity,
       topProducts,
       revenueByDay
@@ -68,7 +68,7 @@ Your job:
     const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
 
     // Calculate average order value
-    const avgOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+    const avgOrderValue = totalTransactions > 0 ? totalRevenue / totalTransactions : 0;
 
     // byCategory is an array of { _id: category, total: amount }, convert to string
     const expenseBreakdown = Array.isArray(byCategory)
@@ -99,7 +99,7 @@ Your job:
 
 💰 REVENUE:
 - Total: $${totalRevenue.toFixed(2)}
-- Orders: ${totalOrders}
+- Orders: ${totalTransactions}
 - Avg Order Value: $${avgOrderValue.toFixed(2)}
 - Top Products: ${topProductsStr || 'None'}
 

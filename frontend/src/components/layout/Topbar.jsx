@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '../../context/LanguageContext'
@@ -10,6 +10,17 @@ export default function Topbar({ onMenuToggle }) {
   const { t } = useTranslation()
   const [showProfileMenu, setShowProfileMenu] = useState(false)
   const navigate = useNavigate()
+  const menuRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowProfileMenu(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const { data: userData } = useQuery({
     queryKey: ['me'],
@@ -49,7 +60,7 @@ export default function Topbar({ onMenuToggle }) {
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="relative">
+        <div className="relative" ref={menuRef}>
           <button
             onClick={() => setShowProfileMenu(!showProfileMenu)}
             className="flex items-center gap-2 p-1 rounded-xl hover:bg-slate-800 transition-colors"

@@ -4,7 +4,7 @@ import { Table } from '../../components/ui/Table';
 import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import ExpenseForm from './ExpenseForm';
-import Card from '../../components/ui/Card';
+import StatCard from '../../components/ui/StatCard';
 import { Wallet, Tag, Plus } from 'lucide-react';
 import { formatCurrency } from '../../utils/formatCurrency';
 
@@ -31,16 +31,18 @@ const ExpensesPage = () => {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <Card 
-          title="Total Expenses" 
-          value={formatCurrency(summaryData?.totalExpense || 0)} 
-          icon={Wallet} 
+        <StatCard
+          title="Total Expenses"
+          value={formatCurrency(summaryData?.totalExpense || 0)}
+          icon={<Wallet className="h-5 w-5" />}
+          color="red"
         />
-        <Card 
-          title="Top Category" 
-          value={summaryData?.byCategory?.[0]?.category || 'N/A'} 
+        <StatCard
+          title="Top Category"
+          value={summaryData?.byCategory?.[0]?.category || 'N/A'}
           subtitle={formatCurrency(summaryData?.byCategory?.[0]?.total || 0)}
-          icon={Tag} 
+          icon={<Tag className="h-5 w-5" />}
+          color="yellow"
         />
       </div>
 

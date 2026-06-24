@@ -15,6 +15,7 @@ const envSchema = z.object({
   AI_PROVIDER: z.string().default('gemini'),
   AI_MODEL: z.string().default('gemini-2.5-flash'),
   GEMINI_API_KEY: z.string().optional(),
+  CORS_ORIGIN: z.string().optional(),
 });
 
 const env = envSchema.parse(process.env);

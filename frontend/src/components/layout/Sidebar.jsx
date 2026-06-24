@@ -33,7 +33,7 @@ const itemVariants = {
 }
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, labelKey: 'nav.dashboard' },
+  { to: '/dashboard', icon: LayoutDashboard, labelKey: 'nav.dashboard' },
   { to: '/products', icon: Package, labelKey: 'nav.products' },
   { to: '/sales', icon: Receipt, labelKey: 'nav.sales' },
   { to: '/expenses', icon: Wallet, labelKey: 'nav.expenses' },

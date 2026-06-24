@@ -12,14 +12,17 @@ export function useAuth() {
 
   const { data: me, isLoading: meLoading, refetch } = useQuery({
     queryKey: ['auth', 'me'],
-    queryFn: () => authApi.getMe(),
+    queryFn: async () => {
+      const res = await authApi.getMe()
+      return res.data.data.user
+    },
     enabled: !!token && !user,
     retry: false,
   })
 
   useEffect(() => {
     if (me) {
-      setAuth(me.data, token)
+      setAuth(me, token)
       setLoading(false)
     } else if (meLoading === false && token && !user) {
       setLoading(false)

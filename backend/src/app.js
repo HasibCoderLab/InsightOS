@@ -1,25 +1,35 @@
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import routes from './routes/index.js';
 import notFound from './middleware/notFound.js';
 import errorHandler from './middleware/errorHandler.js';
+import env from './config/env.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const uploadsDir = path.join(__dirname, '..', 'uploads');
+const avatarsDir = path.join(uploadsDir, 'avatars');
+fs.mkdirSync(avatarsDir, { recursive: true });
 
 /**
  * Express application configuration and middleware setup
  */
 const app = express();
 
+// Cookie parser (needed for refresh token cookie)
+app.use(cookieParser());
+
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: env.CORS_ORIGIN || 'http://localhost:5173',
   credentials: true,
 }));
 
